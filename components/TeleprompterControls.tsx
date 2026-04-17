@@ -17,11 +17,17 @@ import {
   AlignLeft,
   AlignCenter,
   AlignRight,
+  Timer,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function TeleprompterControls() {
   const store = useTeleprompterStore();
+  const [isPiPSupported, setIsPiPSupported] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsPiPSupported('documentPictureInPicture' in window);
+  }, []);
 
   const handleToggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -33,6 +39,19 @@ export default function TeleprompterControls() {
 
   const handlePiP = () => {
     window.dispatchEvent(new CustomEvent('toggle-pip'));
+  };
+
+  const handleTogglePlay = () => {
+    if (!store.isPlaying && !store.isCountingDown && store.countdownDuration > 0) {
+      store.setCountdownSeconds(store.countdownDuration);
+      store.setIsCountingDown(true);
+    } else {
+      if (store.isCountingDown) {
+        store.setIsCountingDown(false);
+      } else {
+        store.togglePlay();
+      }
+    }
   };
 
   return (
@@ -107,6 +126,26 @@ export default function TeleprompterControls() {
           <Eye className="w-4 h-4" />
           Guide
         </button>
+
+        {/* Countdown */}
+        <div className="flex items-center gap-1 border-l border-border pl-2 ml-2">
+          <button
+            onClick={() => {
+              const options = [0, 3, 5, 10];
+              const currentIndex = options.indexOf(store.countdownDuration);
+              const nextIndex = (currentIndex + 1) % options.length;
+              store.setCountdownDuration(options[nextIndex]);
+            }}
+            className={cn(
+              "p-2 rounded-lg transition-all gap-2 flex items-center text-xs font-medium",
+              store.countdownDuration > 0 ? "bg-accent text-white shadow-[0_0_15px_--accent-glow]" : "text-secondary hover:text-foreground hover:bg-surface-2"
+            )}
+            title="Countdown before start"
+          >
+            <Timer className="w-4 h-4" />
+            {store.countdownDuration === 0 ? 'Off' : `${store.countdownDuration}s`}
+          </button>
+        </div>
       </div>
 
       {/* Main Controls Row */}
@@ -135,7 +174,7 @@ export default function TeleprompterControls() {
 
         {/* Play / Pause */}
         <button
-          onClick={() => store.togglePlay()}
+          onClick={handleTogglePlay}
           className="w-14 h-14 flex items-center justify-center bg-foreground text-background rounded-full hover:scale-110 active:scale-95 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)]"
           title="Play/Pause (Space)"
         >
@@ -173,13 +212,15 @@ export default function TeleprompterControls() {
           >
             <RotateCcw className="w-5 h-5" />
           </button>
-          <button
-            onClick={handlePiP}
-            className="p-3 text-secondary hover:text-foreground hover:bg-surface-2 rounded-full transition-all"
-            title="Picture in Picture (P)"
-          >
-            <ExternalLink className="w-5 h-5" />
-          </button>
+          {isPiPSupported && (
+            <button
+              onClick={handlePiP}
+              className="p-3 text-secondary hover:text-foreground hover:bg-surface-2 rounded-full transition-all"
+              title="Picture in Picture (P)"
+            >
+              <ExternalLink className="w-5 h-5" />
+            </button>
+          )}
           <button
             onClick={handleToggleFullscreen}
             className="p-3 text-secondary hover:text-foreground hover:bg-surface-2 rounded-full transition-all"

@@ -41,6 +41,14 @@ interface TeleprompterState {
   scrollPosition: number;
   setScrollPosition: (pos: number) => void;
   resetScroll: () => void;
+  
+  // Countdown
+  countdownDuration: number; // 0, 3, 5, 10
+  setCountdownDuration: (duration: number) => void;
+  isCountingDown: boolean;
+  setIsCountingDown: (is: boolean) => void;
+  countdownSeconds: number;
+  setCountdownSeconds: (sec: number) => void;
 
   // Internal counter used to signal a reset (avoids Zustand same-value dedup)
   _resetCounter: number;
@@ -86,8 +94,16 @@ export const useTeleprompterStore = create<TeleprompterState>()(
       resetScroll: () => set((state) => ({
         scrollPosition: 0,
         isPlaying: false,
+        isCountingDown: false,
         _resetCounter: state._resetCounter + 1,
       })),
+
+      countdownDuration: 0,
+      setCountdownDuration: (countdownDuration) => set({ countdownDuration }),
+      isCountingDown: false,
+      setIsCountingDown: (isCountingDown) => set({ isCountingDown }),
+      countdownSeconds: 0,
+      setCountdownSeconds: (countdownSeconds) => set({ countdownSeconds }),
 
       _resetCounter: 0,
     }),
@@ -102,6 +118,7 @@ export const useTeleprompterStore = create<TeleprompterState>()(
         isMirrored: state.isMirrored,
         focusMode: state.focusMode,
         showGuide: state.showGuide,
+        countdownDuration: state.countdownDuration,
       }),
     }
   )

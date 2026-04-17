@@ -27,12 +27,7 @@ export default function TeleprompterPiP({
 
   useEffect(() => {
     const handleTogglePiP = async () => {
-      if (!('documentPictureInPicture' in window)) {
-        alert(
-          'Document Picture-in-Picture is not supported in your browser.\nPlease use Chrome or Edge 116+.'
-        );
-        return;
-      }
+      if (!('documentPictureInPicture' in window)) return;
 
       // If already open, close it
       if (pipWindowRef.current) {

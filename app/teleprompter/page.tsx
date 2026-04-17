@@ -5,6 +5,7 @@ import TeleprompterEditor from '@/components/TeleprompterEditor';
 import TeleprompterViewer from '@/components/TeleprompterViewer';
 import TeleprompterControls from '@/components/TeleprompterControls';
 import TeleprompterPiP from '@/components/TeleprompterPiP';
+import CountdownOverlay from '@/components/CountdownOverlay';
 import { useAutoScroll } from '@/hooks/useAutoScroll';
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 
@@ -40,6 +41,7 @@ export default function TeleprompterPage() {
 
       {/* Logic Components (No UI) */}
       <TeleprompterPiP viewerRef={viewerRef} />
+      <CountdownOverlay />
       
       {/* Screen Reader Announcements */}
       <div className="sr-only" aria-live="polite">

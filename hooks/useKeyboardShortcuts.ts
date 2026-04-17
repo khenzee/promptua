@@ -28,7 +28,16 @@ export function useKeyboardShortcuts() {
       switch (e.key) {
         case ' ':
           e.preventDefault();
-          s.togglePlay();
+          if (!s.isPlaying && !s.isCountingDown && s.countdownDuration > 0) {
+            s.setCountdownSeconds(s.countdownDuration);
+            s.setIsCountingDown(true);
+          } else {
+            if (s.isCountingDown) {
+              s.setIsCountingDown(false);
+            } else {
+              s.togglePlay();
+            }
+          }
           break;
         case 'ArrowUp':
           e.preventDefault();
