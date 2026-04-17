@@ -16,16 +16,16 @@ export default function TeleprompterPage() {
   useKeyboardShortcuts();
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-background text-foreground selection:bg-[var(--accent)] selection:text-white">
+    <div className="flex flex-col h-screen overflow-hidden bg-background text-foreground selection:bg-accent selection:text-white">
       {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[var(--accent)]/10 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[var(--accent)]/5 blur-[120px] rounded-full" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent/5 blur-[120px] rounded-full" />
       </div>
 
       <main className="flex flex-1 relative z-10 overflow-hidden">
         {/* Left Panel: Editor */}
-        <div className="w-[400px] lg:w-[450px] flex-shrink-0 hidden md:flex flex-col transition-all duration-300">
+        <div className="w-[400px] lg:w-[450px] shrink-0 hidden md:flex flex-col transition-all duration-300">
           <TeleprompterEditor />
         </div>
 

@@ -26,7 +26,7 @@ export function AppPreview() {
             </div>
 
             <Image
-              src="/app-screenshot.png"
+              src="/appscreenshot.png"
               alt="Promptua teleprompter interface showing the script editor, viewer, and control panel"
               width={1920}
               height={1080}
