@@ -35,9 +35,9 @@
   --color-accent-hover: var(--accent-hover);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
-  --color-border-custom: var(--border);
+  --color-border: var(--border);
   --color-border-2: var(--border-2);
-  --color-text-secondary: var(--text-secondary);
+  --color-secondary: var(--text-secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

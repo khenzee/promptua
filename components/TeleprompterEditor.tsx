@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useCallback } from 'react';
 import { useTeleprompterStore } from '@/store/useTeleprompterStore';
 import { Trash2, FileUp, Hash, Clock } from 'lucide-react';
 
