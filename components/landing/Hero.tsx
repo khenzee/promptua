@@ -44,7 +44,7 @@ export function Hero({ script, setScript, onLaunch }: HeroProps) {
                 onChange={(e) => setScript(e.target.value)}
                 placeholder="Paste your script here to get started…"
                 rows={5}
-                className="w-full bg-transparent text-foreground placeholder:text-secondary dark:placeholder:text-zinc-600 px-6 py-5 text-base leading-relaxed resize-none focus:outline-none"
+                className="w-full bg-transparent text-foreground placeholder:text-secondary dark:placeholder:text-zinc-300 px-6 py-5 text-base leading-relaxed resize-none focus:outline-none"
               />
 
               <div className="flex flex-col sm:flex-row items-center sm:justify-between px-6 pb-4 gap-4">
